@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "450615655932",
+    "project_id": "mi-app-store-1-1",
+    "storage_bucket": "mi-app-store-1-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450615655932:android:1ca70567d5661ba75c4679",
+        "android_client_info": {
+          "package_name": "com.example.mi_app_store_1_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450615655932-4flpsub7u0vis83kn0i3u3idqcs3i0cq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLzZZw5Oqoe47vljPd18P5MjcWre_1dpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450615655932-4flpsub7u0vis83kn0i3u3idqcs3i0cq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
