@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mi_app_store_1_1/carrito_screen.dart';
+import 'package:mi_app_store_1_1/main.dart';
+import 'package:mi_app_store_1_1/relojes_screen.dart';
 import 'perfil_screen.dart';
+
 
 class PrincipalScreen extends StatefulWidget {
   const PrincipalScreen({super.key});
@@ -61,7 +65,15 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                     },
                   ),
                   TextButton(child: const Text('Belleza'), onPressed: () {}),
-                  TextButton(child: const Text('Relojes'), onPressed: () {}),
+                  TextButton(
+                    child: const Text('Relojes'), 
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RelojesScreen()),
+                      );
+                    }
+                  ),
                   TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
                   TextButton(child: const Text('Blog'), onPressed: () {}),
                   IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
@@ -102,6 +114,10 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                   title: const Text('Relojes'),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RelojesScreen()),
+                    );
                   },
                 ),
                 ListTile(
@@ -121,6 +137,10 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                   title: const Text('Carrito'),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CarritoScreen()),
+                    );
                   },
                 ),
                 ListTile(
@@ -128,6 +148,19 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                   title: const Text('Buscar'),
                   onTap: () {
                     Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: const Text('Cerrar sesión'),
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut(); // Cerrar sesión
+                    if (!mounted) return; // Asegúrate de que el widget siga montado
+                    Navigator.pushAndRemoveUntil(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyApp()), // Navegar a PrincipalScreen
+                      (Route<dynamic> route) => false, // Eliminar todas las pantallas anteriores
+                    );
                   },
                 ),
               ],

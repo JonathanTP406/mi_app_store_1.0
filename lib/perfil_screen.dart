@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mi_app_store_1_1/carrito_screen.dart';
+import 'package:mi_app_store_1_1/main.dart';
+import 'package:mi_app_store_1_1/relojes_screen.dart';
 import 'principal_screen.dart'; // Asegúrate de importar PrincipalScreen
 import 'user_menu.dart'; // Asegúrate de importar el widget UserMenu
 
@@ -116,7 +119,11 @@ Future<void> _uploadImage() async {
                   ListTile(
                     title: const Text('Relojes'),
                     onTap: () {
-                      Navigator.pop(context); // Cierra el drawer
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RelojesScreen()),
+                      );
                     },
                   ),
                   ListTile(
@@ -136,6 +143,10 @@ Future<void> _uploadImage() async {
                     title: const Text('Carrito'),
                     onTap: () {
                       Navigator.pop(context); // Cierra el drawer
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CarritoScreen()),
+                    );
                     },
                   ),
                   ListTile(
@@ -143,6 +154,19 @@ Future<void> _uploadImage() async {
                     title: const Text('Buscar'),
                     onTap: () {
                       Navigator.pop(context); // Cierra el drawer
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Cerrar sesión'),
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut(); // Cerrar sesión
+                      if (!mounted) return; // Asegúrate de que el widget siga montado
+                      Navigator.pushAndRemoveUntil(
+                        // ignore: use_build_context_synchronously
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyApp()), // Navegar a PrincipalScreen
+                        (Route<dynamic> route) => false, // Eliminar todas las pantallas anteriores
+                      );
                     },
                   ),
                 ],
@@ -191,8 +215,15 @@ Future<void> _uploadImage() async {
                 ),
                 ListTile(
                   title: const Text('Cerrar sesión'),
-                  onTap: () {
-                    // Acción para cerrar sesión
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut(); // Cerrar sesión
+                    if (!mounted) return; // Asegúrate de que el widget siga montado
+                    Navigator.pushAndRemoveUntil(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyApp()), // Navegar a PrincipalScreen
+                      (Route<dynamic> route) => false, // Eliminar todas las pantallas anteriores
+                    );
                   },
                 ),
               ],
