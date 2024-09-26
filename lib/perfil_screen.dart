@@ -110,12 +110,7 @@ Future<void> _uploadImage() async {
                       child: Image.asset('assets/tictac_logo.png'),
                     ),
                   ),
-                  ListTile(
-                    title: const Text('Belleza'),
-                    onTap: () {
-                      Navigator.pop(context); // Cierra el drawer
-                    },
-                  ),
+                  //ListTile(title: const Text('Belleza'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     title: const Text('Relojes'),
                     onTap: () {
@@ -126,18 +121,8 @@ Future<void> _uploadImage() async {
                       );
                     },
                   ),
-                  ListTile(
-                    title: const Text('Servicio Técnico'),
-                    onTap: () {
-                      Navigator.pop(context); // Cierra el drawer
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Blog'),
-                    onTap: () {
-                      Navigator.pop(context); // Cierra el drawer
-                    },
-                  ),
+                  //ListTile(title: const Text('Servicio Técnico'),onTap: () {Navigator.pop(context);},),
+                  //ListTile(title: const Text('Blog'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     leading: const Icon(Icons.shopping_cart),
                     title: const Text('Carrito'),
@@ -149,13 +134,7 @@ Future<void> _uploadImage() async {
                     );
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.search),
-                    title: const Text('Buscar'),
-                    onTap: () {
-                      Navigator.pop(context); // Cierra el drawer
-                    },
-                  ),
+                  //ListTile(leading: const Icon(Icons.search),title: const Text('Buscar'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     title: const Text('Cerrar sesión'),
                     onTap: () async {

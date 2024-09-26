@@ -5,6 +5,7 @@ import 'package:mi_app_store_1_1/carrito_screen.dart';
 import 'package:mi_app_store_1_1/main.dart';
 import 'package:mi_app_store_1_1/perfil_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:mi_app_store_1_1/principal_screen.dart';
 
 final Logger _logger = Logger('RelojesScreen');
 
@@ -92,41 +93,71 @@ class RelojesScreenState extends State<RelojesScreen> {
                       );
                     },
                   ),
-                  TextButton(child: const Text('Belleza'), onPressed: () {}),
-                  TextButton(child: const Text('Relojes'), onPressed: () {}),
-                  TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
-                  TextButton(child: const Text('Blog'), onPressed: () {}),
+                  //TextButton(child: const Text('Belleza'), onPressed: () {}),
+                  TextButton(
+                    child: const Text('Relojes'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RelojesScreen()),
+                      );
+                    },
+                  ),
+                  //TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
+                  //TextButton(child: const Text('Blog'), onPressed: () {}),
                   IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const CarritoScreen()));
                   }),
-                  IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+                  //IconButton(icon: const Icon(Icons.search), onPressed: () {}),
                 ],
               ),
           ],
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-              child: const Text('Menú', style: TextStyle(color: Colors.white, fontSize: 24)),
-            ),
+      drawer: MediaQuery.of(context).size.width < 600
+          ? Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PrincipalScreen()),
+                        );
+                      },
+                      child: Image.asset('assets/tictac_logo.png'),
+                    ),
+                  ),
+                  ListTile(
+                  title: Text('Mi cuenta $userName'), // Mostrar "Mi cuenta username"
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PerfilScreen()),
+                    );
+                  },
+                ),
+            //ListTile(title: const Text('Belleza'), onTap: () {}),
             ListTile(
-              title: Text('Mi cuenta $userName'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PerfilScreen()),
-                );
-              },
-            ),
-            ListTile(title: const Text('Belleza'), onTap: () {}),
-            ListTile(title: const Text('Relojes'), onTap: () {}),
-            ListTile(title: const Text('Servicio Técnico'), onTap: () {}),
-            ListTile(title: const Text('Blog'), onTap: () {}),
+                    title: const Text('Relojes'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RelojesScreen()),
+                      );
+                    },
+                  ),
+            //ListTile(title: const Text('Servicio Técnico'), onTap: () {}),
+            //ListTile(title: const Text('Blog'), onTap: () {}),
             ListTile(
+              leading: const Icon(Icons.shopping_cart),
               title: const Text('Carrito'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const CarritoScreen()));
@@ -138,7 +169,8 @@ class RelojesScreenState extends State<RelojesScreen> {
             ),
           ],
         ),
-      ),
+      )
+          : null,
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: 'relojes').snapshots(),
         builder: (context, snapshot) {

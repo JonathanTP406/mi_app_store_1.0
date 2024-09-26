@@ -64,7 +64,7 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                       );
                     },
                   ),
-                  TextButton(child: const Text('Belleza'), onPressed: () {}),
+                  //TextButton(child: const Text('Belleza'), onPressed: () {}),
                   TextButton(
                     child: const Text('Relojes'), 
                     onPressed: () {
@@ -74,10 +74,18 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                       );
                     }
                   ),
-                  TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
-                  TextButton(child: const Text('Blog'), onPressed: () {}),
-                  IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
-                  IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+                  //TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
+                  //TextButton(child: const Text('Blog'), onPressed: () {}),
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CarritoScreen()),
+                      );
+                    },
+                  ),
+                  //IconButton(icon: const Icon(Icons.search), onPressed: () {}),
                 ],
               ),
           ],
@@ -104,12 +112,7 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                     );
                   },
                 ),
-                ListTile(
-                  title: const Text('Belleza'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                //ListTile(title: const Text('Belleza'),onTap: () {Navigator.pop(context);},),
                 ListTile(
                   title: const Text('Relojes'),
                   onTap: () {
@@ -120,18 +123,8 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                     );
                   },
                 ),
-                ListTile(
-                  title: const Text('Servicio Técnico'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Blog'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                //ListTile(title: const Text('Servicio Técnico'),onTap: () {Navigator.pop(context);},),
+                //ListTile(title: const Text('Blog'),onTap: () {Navigator.pop(context);},),
                 ListTile(
                   leading: const Icon(Icons.shopping_cart),
                   title: const Text('Carrito'),
@@ -143,13 +136,7 @@ class PrincipalScreenState extends State<PrincipalScreen> {
                     );
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.search),
-                  title: const Text('Buscar'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                //ListTile(leading: const Icon(Icons.search),title: const Text('Buscar'),onTap: () {Navigator.pop(context);},),
                 ListTile(
                   title: const Text('Cerrar sesión'),
                   onTap: () async {

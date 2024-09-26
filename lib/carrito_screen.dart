@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart'; // Importar el paquete logger
 import 'package:mi_app_store_1_1/main.dart';
 import 'package:mi_app_store_1_1/perfil_screen.dart';
+import 'package:mi_app_store_1_1/principal_screen.dart';
 import 'package:mi_app_store_1_1/relojes_screen.dart';
 
 class CarritoScreen extends StatefulWidget {
@@ -18,6 +19,24 @@ class CarritoScreenState extends State<CarritoScreen> {
   String userName = 'username'; // Suponiendo que ya tienes el nombre de usuario cargado en algún lugar
   double totalPrice = 0.0; // Para almacenar el total del carrito
   final Logger logger = Logger(); // Crear una instancia de Logger
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserName();
+  }
+
+  Future<void> _fetchUserName() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      if (userDoc.exists) {
+        setState(() {
+          userName = userDoc.data()?['username'] ?? 'username';
+        });
+      }
+    }
+  }
 
   Future<void> _removeFromCart(String productId) async {
     final userId = _auth.currentUser?.uid; // Obtén el ID del usuario actual
@@ -55,7 +74,7 @@ class CarritoScreenState extends State<CarritoScreen> {
           children: [
             Image.asset('assets/tictac_logo.png', height: 40),
             if (MediaQuery.of(context).size.width >= 600)
-              Row(
+              Row( 
                 children: [
                   TextButton(
                     child: Text('Mi cuenta $userName'),
@@ -66,7 +85,7 @@ class CarritoScreenState extends State<CarritoScreen> {
                       );
                     },
                   ),
-                  TextButton(child: const Text('Belleza'), onPressed: () {}),
+                  //TextButton(child: const Text('Belleza'), onPressed: () {}),
                   TextButton(
                     child: const Text('Relojes'),
                     onPressed: () {
@@ -76,8 +95,8 @@ class CarritoScreenState extends State<CarritoScreen> {
                       );
                     },
                   ),
-                  TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
-                  TextButton(child: const Text('Blog'), onPressed: () {}),
+                  //TextButton(child: const Text('Servicio Técnico'), onPressed: () {}),
+                  //TextButton(child: const Text('Blog'), onPressed: () {}),
                   IconButton(
                     icon: const Icon(Icons.shopping_cart),
                     onPressed: () {
@@ -87,7 +106,7 @@ class CarritoScreenState extends State<CarritoScreen> {
                       );
                     },
                   ),
-                  IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+                  //IconButton(icon: const Icon(Icons.search), onPressed: () {}),
                 ],
               ),
           ],
@@ -102,7 +121,15 @@ class CarritoScreenState extends State<CarritoScreen> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                     ),
-                    child: Image.asset('assets/tictac_logo.png'),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PrincipalScreen()),
+                        );
+                      },
+                      child: Image.asset('assets/tictac_logo.png'),
+                    ),
                   ),
                   ListTile(
                     title: Text('Mi cuenta $userName'),
@@ -114,12 +141,7 @@ class CarritoScreenState extends State<CarritoScreen> {
                       );
                     },
                   ),
-                  ListTile(
-                    title: const Text('Belleza'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  //ListTile(title: const Text('Belleza'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     title: const Text('Relojes'),
                     onTap: () {
@@ -130,32 +152,16 @@ class CarritoScreenState extends State<CarritoScreen> {
                       );
                     },
                   ),
-                  ListTile(
-                    title: const Text('Servicio Técnico'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Blog'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  //ListTile(title: const Text('Servicio Técnico'),onTap: () {Navigator.pop(context);},),
+                  //ListTile(title: const Text('Blog'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     leading: const Icon(Icons.shopping_cart),
                     title: const Text('Carrito'),
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CarritoScreen()));
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.search),
-                    title: const Text('Buscar'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  //ListTile(leading: const Icon(Icons.search),title: const Text('Buscar'),onTap: () {Navigator.pop(context);},),
                   ListTile(
                     title: const Text('Cerrar sesión'),
                     onTap: () async {
